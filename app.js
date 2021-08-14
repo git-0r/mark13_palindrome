@@ -17,10 +17,14 @@ form.addEventListener('submit', (e) => {
     const birthDate = new Date(bdate.value);
 
     somefunction(birthDate)
-})
+});
 
 // this function formats the birthdate in different sequences
 function dateFormat(dd, mm, yyyy, yy) {
+
+    if (dd < 10) { dd = '0' + dd }
+    if (mm < 10) { mm = '0' + mm }
+
 
     const dateFormats = {
         "dd-mm-yyyy": dd + mm + yyyy,
@@ -38,7 +42,7 @@ function dateFormat(dd, mm, yyyy, yy) {
     }
 
     return dateFormats;
-}
+};
 
 // comparing every date format from dateFormats with reversed version one at a time, to check if it is a palindrome in that format
 
@@ -50,7 +54,7 @@ function compareFunction(key, d) {
 
         palindromeArray.push(`is palindrome in format ${key} = ${reverseStr}`);
     }
-}
+};
 
 // function to reverse the date, d is date in a particular format from dateFormats object
 function reverseFunction(d) {
@@ -63,16 +67,13 @@ function reverseFunction(d) {
     }
 
     return reverseStr
-}
+};
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PART TWO~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~PART TWO - FIND NEXT PALINDROME DATE~~~~~~~~~~~~~
 
-const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 function somefunction(birthDate) {
-
-    palindromeArray = [];
 
     let dd = birthDate.getDate();
     let mm = (birthDate.getMonth());
@@ -94,7 +95,11 @@ function somefunction(birthDate) {
 
             for (let i = dd; i <= daysInMonths[mm]; i++) {
 
-                const dateFormats = dateFormat(i.toString(), j.toString(), yyyy.toString(), yy.toString());
+                const dateFormats = dateFormat(
+                    i.toString(),
+                    j.toString(),
+                    yyyy.toString(),
+                    yy.toString());
 
                 // array of all keys in dateFormats
                 const dateFormatkeys = Object.keys(dateFormats);
@@ -106,23 +111,18 @@ function somefunction(birthDate) {
 
                 if (palindromeArray.length > 0 && missedby === 0) {
 
-                    palindromeArray.forEach(elem => {
-                        const p = document.createElement('p');
+                    const p = document.createElement('p');
 
-                        p.innerText = `yay! your bday ${elem}`;
-                        result.appendChild(p);
-                    })
+                    p.innerText = `yay! your bday ${palindromeArray[0]}`;
+                    result.appendChild(p);
                     break;
 
                 } else if (palindromeArray.length > 0) {
 
-                    palindromeArray.forEach(elem => {
-                        const p = document.createElement('p');
+                    const p = document.createElement('p');
 
-                        p.innerText = 'nearest date ' + elem + ` missed by ${missedby} days`;
-                        result.appendChild(p);
-
-                    })
+                    p.innerText = 'nearest date ' + palindromeArray[0] + ` missed by ${missedby} days`;
+                    result.appendChild(p);
                     break;
                 }
                 missedby += 1;
