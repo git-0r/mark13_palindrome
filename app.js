@@ -115,6 +115,7 @@ function somefunction(birthDate) {
 
                     p.innerText = `yay! your bday ${palindromeArray[0]}`;
                     result.appendChild(p);
+                    result.style.display = 'block';
                     break;
 
                 } else if (palindromeArray.length > 0) {
@@ -123,6 +124,8 @@ function somefunction(birthDate) {
 
                     p.innerText = 'nearest date ' + palindromeArray[0] + ` missed by ${missedby} days`;
                     result.appendChild(p);
+                    result.style.display = 'block';
+
                     break;
                 }
                 missedby += 1;
